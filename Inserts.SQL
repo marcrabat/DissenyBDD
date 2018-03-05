@@ -2,10 +2,12 @@
 
 /*TODO: INSERTIONS TO THE TABLES*/
 
+INSERT INTO Users (UserID, Name, Surname, BirthDate, Email, StartingDate, IsActive) VALUES /*En principi no cal el CAST de les dates perquè el format ja es correcte però si cal es treu*/
 (0, 'User_A', 'Surname_A', CAST('1995-01-21' AS Date), 'UserA@upfinder.edu', CAST('2016-04-01' AS Date), 1),
 (1, 'User_B', 'Surname_B', CAST('1994-02-22' AS Date), 'UserB@upfinder.edu', CAST('2016-04-01' AS Date), 1),
 (2, 'User_C', 'Surname_C', CAST('1993-03-24' AS Date), 'UserC@upfinder.edu', CAST('2016-04-01' AS Date), 1),
 (3, 'User_D', 'Surname_D', CAST('1992-04-27' AS Date), 'UserD@upfinder.edu', CAST('2017-04-01' AS Date), 1),
+(4, 'User_E', 'Surname_E', CAST('1991-05-29' AS Date), 'UserE@upfinder.edu', CAST('2017-04-01' AS Date), 1),
 (5, 'User_F', 'Surname_F', CAST('1990-06-01' AS Date), 'UserF@upfinder.edu', CAST('2017-04-01' AS Date), 1),
 (6, 'User_G', 'Surname_G', CAST('1989-07-03' AS Date), 'UserG@upfinder.edu', CAST('2012-04-01' AS Date), 1),
 (7, 'User_H', 'Surname_H', CAST('1988-08-08' AS Date), 'UserH@upfinder.edu', CAST('2012-04-01' AS Date), 1),

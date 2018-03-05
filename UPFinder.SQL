@@ -56,8 +56,17 @@ CREATE TABLE IF NOT EXISTS PASs(
 	FOREIGN KEY (UserID) REFERENCES Employees(UserID));
 
 
+CREATE TABLE IF NOT EXISTS Spaces(
+	SpaceID INT(8),
+	Capacity INT(8),
+	Location CHAR(30),
+	PRIMARY KEY (SpaceID));
 
 
+CREATE TABLE IF NOT EXISTS Classrooms(
+	SpaceID INT(8),
+	Kind CHAR(20),	/*Potser el kind podria ser un ID referenciant a una taula amb els tipus. De moment ho poso com ho tenim en el ER*/
+	FOREIGN KEY (SpaceID) REFERENCES Spaces(SpaceID));
 
 
 
