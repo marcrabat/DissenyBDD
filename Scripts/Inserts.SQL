@@ -1,4 +1,6 @@
-/*Inserts into the Database*/
+/*
+The creation of different users (e.g.: students, teachers, other employees, etc.):
+*/
 
 INSERT INTO Budgets (BudgetID, AmountMoney) VALUES
 (001, 200.00),
@@ -39,19 +41,19 @@ INSERT INTO Degrees (DegreeId, UserID) VALUES
 (224, 114127);
 
 INSERT INTO Users (UserID, Name, Surname, BirthDate, Email, StartingDate, IsActive) VALUES
-(114125, 'Profe_A', 'Surname_A', CAST('1995-01-21' AS Date), 'UserA@upfinder.edu', CAST('2016-04-01' AS Date), 1),
-(114126, 'Profe_B', 'Surname_B', CAST('1994-02-22' AS Date), 'UserB@upfinder.edu', CAST('2016-04-01' AS Date), 1),
-(114127, 'Profe_C', 'Surname_C', CAST('1993-03-24' AS Date), 'UserC@upfinder.edu', CAST('2016-04-01' AS Date), 1),
-(114128, 'PAS_A', 'Surname_D', CAST('1992-04-27' AS Date), 'UserD@upfinder.edu', CAST('2017-04-01' AS Date), 1),
-(114129, 'PAS_B', 'Surname_E', CAST('1991-05-29' AS Date), 'UserE@upfinder.edu', CAST('2017-04-01' AS Date), 1),
-(114130, 'User_F', 'Surname_F', CAST('1990-06-01' AS Date), 'UserF@upfinder.edu', CAST('2017-04-01' AS Date), 1),
-(114131, 'User_G', 'Surname_G', CAST('1989-07-03' AS Date), 'UserG@upfinder.edu', CAST('2012-04-01' AS Date), 1),
-(114132, 'User_H', 'Surname_H', CAST('1988-08-08' AS Date), 'UserH@upfinder.edu', CAST('2012-04-01' AS Date), 1),
-(114133, 'User_I', 'Surname_I', CAST('1987-09-11' AS Date), 'UserI@upfinder.edu', CAST('2000-04-01' AS Date), 1),
-(114134, 'User_J', 'Surname_J', CAST('1977-10-13' AS Date), 'UserJ@upfinder.edu', CAST('2002-04-01' AS Date), 1),
-(114135, 'User_K', 'Surname_K', CAST('1976-11-19' AS Date), 'UserK@upfinder.edu', CAST('2002-04-01' AS Date), 1),
-(114136, 'User_L', 'Surname_L', CAST('1975-12-19' AS Date), 'UserL@upfinder.edu', CAST('1999-04-01' AS Date), 1),
-(114137, 'User_M', 'Surname_M', CAST('1974-12-14' AS Date), 'UserM@upfinder.edu', CAST('2018-04-01' AS Date), 0);
+(114125, 'Profe_A', 'Profe_Surname_A', CAST('1964-01-21' AS Date), 'Profe_A@upfinder.edu', CAST('2016-04-01' AS Date), 1),
+(114126, 'Profe_B', 'Profe_Surname_B', CAST('1970-02-22' AS Date), 'Profe_B@upfinder.edu', CAST('2016-04-01' AS Date), 0),
+(114127, 'Profe_C', 'Profe_Surname_C', CAST('1983-03-24' AS Date), 'Profe_C@upfinder.edu', CAST('2016-04-01' AS Date), 1),
+(114128, 'PAS_A', 'PAS_Surname_D', CAST('1972-04-27' AS Date), 'PAS_A@upfinder.edu', CAST('2017-04-01' AS Date), 1),
+(114129, 'PAS_B', 'PAS_Surname_E', CAST('1981-05-29' AS Date), 'PAS_B@upfinder.edu', CAST('2017-04-01' AS Date), 1),
+(114130, 'Student_A', 'Student_Surname_A', CAST('1990-06-01' AS Date), 'Student_A@upfinder.edu', CAST('2017-04-01' AS Date), 1),
+(114131, 'Student_B', 'Student_Surname_B', CAST('1989-07-03' AS Date), 'Student_B@upfinder.edu', CAST('2012-04-01' AS Date), 1),
+(114132, 'Student_C', 'Student_Surname_C', CAST('1988-08-08' AS Date), 'Student_C@upfinder.edu', CAST('2012-04-01' AS Date), 1),
+(114133, 'Student_D', 'Student_Surname_D', CAST('1987-09-11' AS Date), 'Student_D@upfinder.edu', CAST('2000-04-01' AS Date), 0),
+(114134, 'Student_E', 'Student_Surname_E', CAST('1987-10-13' AS Date), 'Student_E@upfinder.edu', CAST('2002-04-01' AS Date), 0),
+(114135, 'Student_F', 'Student_Surname_F', CAST('1986-11-19' AS Date), 'Student_F@upfinder.edu', CAST('2002-04-01' AS Date), 1),
+(114136, 'Student_G', 'Student_Surname_G', CAST('1985-12-19' AS Date), 'Student_G@upfinder.edu', CAST('1999-04-01' AS Date), 1),
+(114137, 'Student_H', 'Student_Surname_H', CAST('1984-12-14' AS Date), 'Student_H@upfinder.edu', CAST('2018-04-01' AS Date), 1);
 
 INSERT INTO Employees (UserID, Salary) VALUES
 (114125, 2000),
@@ -131,7 +133,7 @@ INSERT INTO contain (DegreeId, CourseID) VALUES
 INSERT INTO doing (CourseID, UserID, Mark) VALUES
 (404, 114130, 7),
 (405, 114131, 8),
-(406, 114132, 0);
+(406, 114132, 10);
 
 INSERT INTO teach (CourseID, UserID) VALUES
 (404, 114125),
@@ -165,3 +167,4 @@ INSERT INTO areDoneIn (CourseId, SpaceID, StartTime, EndTIme) VALUES
 
 INSERT INTO take (UserID, UniversityMaterialID, OrderToTake) VALUES
 (114130, 909, 1);
+
