@@ -1,7 +1,6 @@
 /*
 The creation of different users (e.g.: students, teachers, other employees, etc.):
 */
-
 INSERT INTO Budgets (BudgetID, AmountMoney) VALUES
 (001, 200.00),
 (002, 300.00),
@@ -10,7 +9,6 @@ INSERT INTO Budgets (BudgetID, AmountMoney) VALUES
 (005, 600.00),
 (006, 600.00),
 (007, 600.00);
-
 
 INSERT INTO UniversityLogic (SystemID, Name, BudgetID) VALUES
 (999, 'UniversitatPompeuFabra', 007);
@@ -23,17 +21,17 @@ INSERT INTO Spaces (SpaceID, Capacity, Location, SystemID) VALUES
 (55003, 10, 'Edifici55-Tanger', 999),
 (53001, 5, 'Edifici53-Biblio', 999);
 
-INSERT INTO Offices (SpaceID) VALUES
-(55001),
-(55002),
-(55003);
+INSERT INTO Offices (OfficeID, SpaceID) VALUES
+(55001, 55001),
+(55002, 55002),
+(55003, 55003);
 
-INSERT INTO LibraryWorkingAreas (SpaceID) VALUES
-(53001);
+INSERT INTO LibraryWorkingAreas (LibraryWorkingAreaID, SpaceID) VALUES
+(53001, 53001);
 
-INSERT INTO Classrooms (SpaceID, Kind) VALUES
-(52001, 'Teoria'),
-(54002, 'Seminari');
+INSERT INTO Classrooms (ClassroomID, SpaceID, Kind) VALUES
+(52001, 52001, 'Teoria'),
+(54002, 54002, 'Seminari');
 
 INSERT INTO Degrees (DegreeId, UserID) VALUES
 (222, 114125),
@@ -55,26 +53,26 @@ INSERT INTO Users (UserID, Name, Surname, BirthDate, Email, StartingDate, IsActi
 (114136, 'Student_G', 'Student_Surname_G', CAST('1985-12-19' AS Date), 'Student_G@upfinder.edu', CAST('1999-04-01' AS Date), 1),
 (114137, 'Student_H', 'Student_Surname_H', CAST('1984-12-14' AS Date), 'Student_H@upfinder.edu', CAST('2018-04-01' AS Date), 1);
 
-INSERT INTO Employees (UserID, Salary) VALUES
-(114125, 2000),
-(114126, 2000),
-(114127, 2000),
-(114128, 1500),
-(114129, 1500);
+INSERT INTO Employees (EmployeeID, UserID, Salary) VALUES
+(114125, 114125, 2000),
+(114126, 114126, 2000),
+(114127, 114127, 2000),
+(114128, 114128, 1500),
+(114129, 114129, 1500);
 
-INSERT INTO PASs (UserID, SystemID) VALUES
-(114128, 999),
-(114129, 999);
+INSERT INTO PASs (pasID, EmployeeID, SystemID) VALUES
+(114128, 114128, 999),
+(114129, 114129, 999);
 
-INSERT INTO Students (UserID, LvlOfAccess) VALUES
-(114130, 0),
-(114131, 0),
-(114132, 0),
-(114133, 0),
-(114134, 0),
-(114135, 0),
-(114136, 0),
-(114137, 0);
+INSERT INTO Students (StudentID, UserID, LvlOfAccess) VALUES
+(114130, 114130, 0),
+(114131, 114131, 0),
+(114132, 114132, 0),
+(114133, 114133, 0),
+(114134, 114134, 0),
+(114135, 114135, 0),
+(114136, 114136, 0),
+(114137, 114137, 0);
 
 INSERT INTO BookingHours (BookingId, UserID, StartingDate, EndingDate) VALUES
 (777, 114130, '2018-03-12', '2018-03-13');
@@ -112,10 +110,10 @@ INSERT INTO Publications (PublicationID, Title, ProjectId) VALUES
 INSERT INTO Departments (DepartmentID, Name, BudgetID, SpaceID) VALUES
 (303, 'Graphics', 001, 55001);
 
-INSERT INTO PDIs (UserID, DepartmentID, SpaceID, BudgetID, MemberOfGovTeam, LvlOfAccess, Permanent) VALUES
-(114125, 303, 55001, 001, 1, 1, 1),
-(114126, 303, 55002, 001, 0, 1, 1),
-(114127, 303, 55003, 001, 0, 1, 1);
+INSERT INTO PDIs (pdiID, EmployeeID, DepartmentID, SpaceID, BudgetID, MemberOfGovTeam, LvlOfAccess, Permanent) VALUES
+(114125, 114125, 303, 55001, 001, 1, 1, 1),
+(114126, 114126, 303, 55002, 001, 0, 1, 1),
+(114127, 114127, 303, 55003, 001, 0, 1, 1);
 
 INSERT INTO TFGs (TFGID, TFGName, Mark, DegreeId, SupervisorId) VALUES
 (101, 'MarcTreballa', 0, 222, 114125),
@@ -167,4 +165,3 @@ INSERT INTO areDoneIn (CourseId, SpaceID, StartTime, EndTIme) VALUES
 
 INSERT INTO take (UserID, UniversityMaterialID, OrderToTake) VALUES
 (114130, 909, 1);
-
