@@ -29,10 +29,7 @@ INSERT INTO Offices (SpaceID) VALUES
 INSERT INTO LibraryWorkingAreas (SpaceID) VALUES
 (53001);
 
-INSERT INTO BookingHours (BookingId, UserID, StartingDate, EndingDate) VALUES
-(777, 114130, '2018-03-12', '2018-03-13');
-
-INSERT INTO Classrooms (SpaceID) VALUES
+INSERT INTO Classrooms (SpaceID, Kind) VALUES
 (52001, 'Teoria'),
 (54002, 'Seminari');
 
@@ -40,11 +37,6 @@ INSERT INTO Degrees (DegreeId, UserID) VALUES
 (222, 114125),
 (223, 114126),
 (224, 114127);
-
-INSERT INTO TFGs (TFGID, TFGName, Mark, DegreeId, SupervisorId) VALUES
-(101, 'MarcTreballa', 0, 222, 114125),
-(102, 'MarcAhpavila', 0, 223, 114125),
-(103, 'MarcFesFeina', 0, 223, 114125);
 
 INSERT INTO Users (UserID, Name, Surname, BirthDate, Email, StartingDate, IsActive) VALUES
 (114125, 'Profe_A', 'Surname_A', CAST('1995-01-21' AS Date), 'UserA@upfinder.edu', CAST('2016-04-01' AS Date), 1),
@@ -68,11 +60,6 @@ INSERT INTO Employees (UserID, Salary) VALUES
 (114128, 1500),
 (114129, 1500);
 
-INSERT INTO PDIs (UserID, DepartmentID, SpaceID, BudgetID, MemberOfGovTeam, LvlOfAccess, Permanent) VALUES
-(114125, 303, 55001, 001, 1, 1, 1),
-(114126, 303, 55002, 001, 0, 1, 1),
-(114127, 303, 55003, 001, 0, 1, 1);
-
 INSERT INTO PASs (UserID, SystemID) VALUES
 (114128, 999),
 (114129, 999);
@@ -86,6 +73,9 @@ INSERT INTO Students (UserID, LvlOfAccess) VALUES
 (114135, 0),
 (114136, 0),
 (114137, 0);
+
+INSERT INTO BookingHours (BookingId, UserID, StartingDate, EndingDate) VALUES
+(777, 114130, '2018-03-12', '2018-03-13');
 
 INSERT INTO WorkingPeriods (PeriodID, StartingDate, EndingDate) VALUES
 (0, '2002-04-13', '2003-11-01'),
@@ -103,7 +93,7 @@ INSERT INTO Courses (CourseID, Name, StartingDate, EndingDate, ECTS) VALUES
 INSERT INTO CourseMaterials (CourseMaterialID, CourseID) VALUES
 (01, 404),
 (02, 405),
-(01, 406);
+(03, 406);
 
 INSERT INTO ResearchProjects (ProjectId, Name) VALUES
 (505, 'ComputerGraphicsResearch'),
@@ -113,12 +103,22 @@ INSERT INTO ResearchProjects (ProjectId, Name) VALUES
 INSERT INTO ResearchGrants (GrantId, Name, StartDate, EndDate, AmountMoney) VALUES
 (707, 'OleTusHuevos', '2018-01-01', '2018-12-31', 1000);
 
-INSERT INTO Publications (PublcationID, Title, PorjectId) VALUES
+INSERT INTO Publications (PublicationID, Title, ProjectId) VALUES
 (808, 'WhyComputerGraphicsMakeMarcStupid', 505),
 (809, 'WhyComputerGraphicsMakeMarcStupidToo', 506);
 
 INSERT INTO Departments (DepartmentID, Name, BudgetID, SpaceID) VALUES
 (303, 'Graphics', 001, 55001);
+
+INSERT INTO PDIs (UserID, DepartmentID, SpaceID, BudgetID, MemberOfGovTeam, LvlOfAccess, Permanent) VALUES
+(114125, 303, 55001, 001, 1, 1, 1),
+(114126, 303, 55002, 001, 0, 1, 1),
+(114127, 303, 55003, 001, 0, 1, 1);
+
+INSERT INTO TFGs (TFGID, TFGName, Mark, DegreeId, SupervisorId) VALUES
+(101, 'MarcTreballa', 0, 222, 114125),
+(102, 'MarcAhpavila', 0, 223, 114125),
+(103, 'MarcFesFeina', 0, 223, 114125);
 
 INSERT INTO UniversityMaterials (UniversityMaterialID, Name, Availability, StartingDate, EndingDate, SystemID) VALUES
 (909, 'Computer', 0, '2018-03-11', '2018-03-12', 999);
@@ -163,5 +163,5 @@ INSERT INTO areDoneIn (CourseId, SpaceID, StartTime, EndTIme) VALUES
 (405, 54002, '2018-03-12', '2018-03-13'),
 (406, 52001, '2018-03-13', '2018-03-14');
 
-INSERT INTO take (UserID, UniversityMaterialID, Order) VALUES
+INSERT INTO take (UserID, UniversityMaterialID, OrderToTake) VALUES
 (114130, 909, 1);
