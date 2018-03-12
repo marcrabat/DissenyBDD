@@ -90,10 +90,10 @@ INSERT INTO Courses (CourseID, Name, StartingDate, EndingDate, ECTS) VALUES
 (405, 'Àlgebra', '2018-01-08', '2018-03-20', 8),
 (406, 'Física', '2018-01-08', '2018-03-20', 8);
 
-INSERT INTO CourseMaterials (CourseMaterialID, CourseID) VALUES
-(01, 404),
-(02, 405),
-(03, 406);
+INSERT INTO CourseMaterials (CourseMaterialID, CourseID, Name, Format, Size) VALUES
+(01, 404, 'Polinomis de Taylor', '.pdf', 16),
+(02, 405, 'Espais Vectorials', '.docx', 32),
+(03, 406, 'Electromagnetisme', '.txt', 4);
 
 INSERT INTO ResearchProjects (ProjectId, Name) VALUES
 (505, 'ComputerGraphicsResearch'),
