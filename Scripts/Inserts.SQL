@@ -65,14 +65,14 @@ INSERT INTO PASs (pasID, EmployeeID, SystemID) VALUES
 (114129, 114129, 999);
 
 INSERT INTO Students (StudentID, UserID, LvlOfAccess) VALUES
-(114130, 114130, 0),
-(114131, 114131, 0),
-(114132, 114132, 0),
-(114133, 114133, 0),
-(114134, 114134, 0),
-(114135, 114135, 0),
-(114136, 114136, 0),
-(114137, 114137, 0);
+(114130, 114130, 'Read'),
+(114131, 114131, 'Read'),
+(114132, 114132, 'Read'),
+(114133, 114133, 'Read'),
+(114134, 114134, 'Read'),
+(114135, 114135, 'Read'),
+(114136, 114136, 'Read'),
+(114137, 114137, 'Read');
 
 INSERT INTO BookingHours (BookingId, UserID, StartingDate, EndingDate) VALUES
 (777, 114130, '2018-03-12', '2018-03-13');
@@ -111,9 +111,9 @@ INSERT INTO Departments (DepartmentID, Name, BudgetID, SpaceID) VALUES
 (303, 'Graphics', 001, 55001);
 
 INSERT INTO PDIs (pdiID, EmployeeID, DepartmentID, SpaceID, BudgetID, MemberOfGovTeam, LvlOfAccess, Permanent) VALUES
-(114125, 114125, 303, 55001, 001, 1, 1, 1),
-(114126, 114126, 303, 55002, 001, 0, 1, 1),
-(114127, 114127, 303, 55003, 001, 0, 1, 1);
+(114125, 114125, 303, 55001, 001, 1, 'Upload', 1),
+(114126, 114126, 303, 55002, 001, 0, 'Upload', 1),
+(114127, 114127, 303, 55003, 001, 0, 'Upload', 1);
 
 INSERT INTO TFGs (TFGID, TFGName, Mark, DegreeId, SupervisorId) VALUES
 (101, 'MarcTreballa', 0, 222, 114125),
