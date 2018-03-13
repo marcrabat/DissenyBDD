@@ -235,13 +235,43 @@ END //
 
 /*(c) Material loan: books, computers, films, etc..*/
 
+delimiter //
+CREATE PROCEDURE createMaterial (IN materialid INT, IN name VARCHAR(20), IN availability BOOLEAN, IN startdate DATE, IN enddate DATE, IN systemid INT)
+BEGIN
+	INSERT INTO UniversityMaterials (UniversityMaterialID, Name, Availability, StartingDate, EndingDate, SystemID) VALUES (materialid, name, availability, startdate, enddate, systemid)
+	ON DUPLICATE KEY UPDATE UniversityMaterialID = materialid, Name = name, Availability = availability, StartingDate = startdate, EndingDate = enddate, SystemID = systemid;
+END //
+
+delimiter //
+CREATE PROCEDURE bookMaterial (IN userid INT, IN materialid INT, IN ordertotake INT)
+BEGIN
+	INSERT INTO take (UserID, UniversityMaterialID, OrderToTake) VALUES (userid, materialid, ordertotake)
+	ON DUPLICATE KEY UPDATE UserID = userid, UniversityMaterialID = materialid, OrderToTake = OrderToTake;
+END //
+
 /*4. Budget management:*/
 
 /*(a) The database must represent the amount of money associated with (a) each
 department and (b) the university.*/
+CREATE VIEW BudgetsOfDepartment
+AS SELECT Departments.DepartmentID, Departments.Name, Budgets.AmountMoney 
+FROM Departments, Budgets
+WHERE Departments.BudgetID = Budgets.BudgetID;
 
 /*(b) Each PDI must have access to its personal budget, which corresponds to the
 amount of money obtained through grants.*/
+CREATE TRIGGER updatePdiBudget AFTER INSERT ON ResearchGrants FOR EACH ROW /***** WORK IN PROGRESS ****/
+BEGIN
+
+	DECLARE projectid INT;
+	DECLARE piid INT;
+ 
+	SET projectid = SELECT areAssociated.ProjectId FROM areAssociated WHERE areAssociated.GrantId = new.GrantId;
+	SET piid = SELECT doResearchIn.UserID FROM doResearchIN WHERE doResearchIn.ProjectId = projectid;
+
+END //
+
+
 
 /*(c) The database must store the information related to research grants and the
 different research projects.*/
