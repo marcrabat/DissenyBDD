@@ -158,7 +158,7 @@ INSERT INTO doResearchIn (UserID, ProjectId, IsPI) VALUES
 INSERT INTO areAssociated (GrantId, ProjectId) VALUES
 (707, 505);
 
-INSERT INTO areDoneIn (CourseId, ClassroomID, StartTime, EndTIme) VALUES
+INSERT INTO areDoneIn (CourseId, ClassroomID, StartTime, EndTime) VALUES
 (404, 52001, '2018-03-11', '2018-03-12'),
 (405, 54002, '2018-03-12', '2018-03-13'),
 (406, 52001, '2018-03-13', '2018-03-14');

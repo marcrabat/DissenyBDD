@@ -271,7 +271,45 @@ BEGIN
 
 END //
 
-
-
 /*(c) The database must store the information related to research grants and the
 different research projects.*/
+
+
+/***Constraints solutions***/
+/*Avoid assigning two course lessons in the same hour and classroom*/
+delimiter //
+CREATE TRIGGER checkTwoCoursesSameUpdate BEFORE UPDATE ON areDoneIn FOR EACH ROW
+BEGIN
+
+	IF new.StartTime IN (SELECT areDoneIn.StartTime FROM areDoneIn WHERE new.ClassroomID = areDoneIn.ClassroomID) THEN
+		signal sqlstate '45000' set message_text = 'No pots afegir una classe en aquesta franja horaria i aula';
+	END IF;
+END; //
+
+delimiter //
+CREATE TRIGGER checkTwoCoursesSameInsert BEFORE INSERT ON areDoneIn FOR EACH ROW
+BEGIN
+
+	IF new.StartTime IN (SELECT areDoneIn.StartTime FROM areDoneIn WHERE new.ClassroomID = areDoneIn.ClassroomID) THEN
+		signal sqlstate '45000' set message_text = 'No pots afegir una classe en aquesta franja horaria i aula';
+	END IF;
+END; //
+
+delimiter //
+CREATE TRIGGER checkTwoCoursesSameTimeForPdi BEFORE INSERT ON teach FOR EACH ROW
+BEGIN
+	
+	DECLARE timeNewCourse
+
+delimiter //
+CREATE TRIGGER bookNoLongerFourHours BEFORE INSERT ON BookingHours FOR EACH ROW
+BEGIN
+	DECLARE maxTime DATETIME;
+	SET maxTime = ADDTIME(new.StartingDate, '4:00:00.00');
+
+	IF new.EndingDate > maxTime THEN
+		signal sqlstate '45000' set message_text = 'No pots reservar una aula per més de 4 hores';
+	END IF;
+END; //
+
+delimiter //
