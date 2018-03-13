@@ -1,4 +1,3 @@
-/*PART 1*/
 /*1. The creation of different users (e.g.: students, teachers, other employees, etc.):*/
 delimiter //
 CREATE PROCEDURE createUser (IN id INT, IN name VARCHAR(20), IN surname VARCHAR(20), IN birthday DATE, IN email VARCHAR(40), IN startingdate DATE, IN isactive BOOL)
@@ -130,6 +129,19 @@ BEGIN
 	IF userid IN (SELECT PDIs.pdiID FROM PDIs WHERE PDIs.pdiID = userid AND PDIs.LvlOfAccess = 'Upload') THEN
 		INSERT INTO CourseMaterials (CourseMaterialID, CourseID, Name, Format, Size) VALUES (materialid, courseid, name, format, size)
 		ON DUPLICATE KEY UPDATE CourseMaterialID = materialid, CourseID = courseid, Name = name, Format = format, Size = size;
+	ELSEIF userid IN (SELECT Students.StudentID FROM Students WHERE Students.StudentID = userid AND Students.LvlOfAccess = 'Upload') THEN
+		INSERT INTO CourseMaterials (CourseMaterialID, CourseID, Name, Format, Size) VALUES (materialid, courseid, name, format, size)
+		ON DUPLICATE KEY UPDATE CourseMaterialID = materialid, CourseID = courseid, Name = name, Format = format, Size = size;
+	END IF;
+END //
+
+delimiter //
+CREATE PROCEDURE changePermissionForUser (IN userid INT, IN newPermission VARCHAR(20))
+BEGIN
+	IF userid IN (SELECT PDIs.pdiID FROM PDIs WHERE PDIs.pdiID = userid) THEN
+		UPDATE PDIs SET LvlOfAccess = newPermission WHERE PDIs.pdiID = userid;
+	ELSEIF userid IN (SELECT Students.StudentID FROM Students WHERE Students.StudentID = userid) THEN
+		UPDATE Students SET LvlOfAccess = newPermission WHERE Students.StudentID = userid;
 	END IF;
 END //
 
@@ -140,3 +152,23 @@ BEGIN
     INSERT INTO doing (CourseID, UserID, Mark) VALUES (courseid , userid, mark)
     ON DUPLICATE KEY UPDATE Mark = mark;
 END //
+
+/*3. Management of physical spaces and material:*/
+
+/*(a) Classrooms (regular rooms, seminar rooms, computer labs, etc.) and a way
+to reserve/assign them.*/
+
+/*(b) Offices and other spaces.*/
+
+/*(c) Material loan: books, computers, films, etc..*/
+
+/*4. Budget management:*/
+
+/*(a) The database must represent the amount of money associated with (a) each
+department and (b) the university.*/
+
+/*(b) Each PDI must have access to its personal budget, which corresponds to the
+amount of money obtained through grants.*/
+
+/*(c) The database must store the information related to research grants and the
+different research projects.*/
