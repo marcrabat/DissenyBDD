@@ -33,10 +33,10 @@ INSERT INTO Classrooms (ClassroomID, SpaceID, Kind) VALUES
 (52001, 52001, 'Teoria'),
 (54002, 54002, 'Seminari');
 
-INSERT INTO Degrees (DegreeId, UserID) VALUES
-(222, 114125),
-(223, 114126),
-(224, 114127);
+INSERT INTO Degrees (DegreeId, UserID, Name) VALUES
+(222, 114125, 'Enginyeria Informàtica'),
+(223, 114126, 'Enginyeria Telemàtica'),
+(224, 114127, 'Enginyeria Biomèdica');
 
 INSERT INTO Users (UserID, Name, Surname, BirthDate, Email, StartingDate, IsActive) VALUES
 (114125, 'Profe_A', 'Profe_Surname_A', CAST('1964-01-21' AS Date), 'Profe_A@upfinder.edu', CAST('2016-04-01' AS Date), 1),
@@ -147,7 +147,7 @@ INSERT INTO contractedIn (UserID, PeriodID) VALUES
 (114128, 0),
 (114129, 1);
 
-INSERT INTO have (BookingId, SpaceID) VALUES
+INSERT INTO have (BookingId, LibraryWorkingAreaID) VALUES
 (777, 53001);
 
 INSERT INTO doResearchIn (UserID, ProjectId, IsPI) VALUES
@@ -158,7 +158,7 @@ INSERT INTO doResearchIn (UserID, ProjectId, IsPI) VALUES
 INSERT INTO areAssociated (GrantId, ProjectId) VALUES
 (707, 505);
 
-INSERT INTO areDoneIn (CourseId, SpaceID, StartTime, EndTIme) VALUES
+INSERT INTO areDoneIn (CourseId, ClassroomID, StartTime, EndTIme) VALUES
 (404, 52001, '2018-03-11', '2018-03-12'),
 (405, 54002, '2018-03-12', '2018-03-13'),
 (406, 52001, '2018-03-13', '2018-03-14');

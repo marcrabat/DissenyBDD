@@ -46,6 +46,12 @@ the grades obtained during her studies or the
 list of courses assigned a teacher.
 */
 
+/*List of Students Information about Courses and Degrees*/
+CREATE VIEW StudentCampusInfo AS
+SELECT Users.UserID AS NIA , Users.Name, Users.Surname, Users.email, Courses.Name AS Course, Degrees.Name AS Degree, doing.Mark
+FROM Users, Courses, doing, Degrees
+WHERE Users.UserID = doing.UserID AND Courses.CourseID = doing.CourseID;
+
 /*List of Courses Taken by a Student*/
 CREATE VIEW `StudentsCourses` AS
 SELECT U.UserID, U.Name AS Student, U.Surname, C.Name 
@@ -64,13 +70,22 @@ SELECT U.Name, U.Surname, U.UserID, C.Name AS Course
 FROM Users AS U INNER JOIN teach AS T ON U.UserID = T.UserID
 INNER JOIN Courses AS C ON T.CourseID = C.CourseID;
 
+/*Time Table of the Courses lessons*/
+CREATE VIEW TimeTable AS
+SELECT CONCAT(Users.Name, ' ',Users.Surname) AS Teacher, Courses.Name AS Class, Classrooms.Kind, areDoneIn.StartTime AS StartAt, areDoneIn.EndTime AS FinishAt, Spaces.Location AS Building
+FROM Users, PDIs, Courses, teach, Classrooms, areDoneIn, Spaces
+WHERE Users.UserID = pdiID
+AND PDIs.pdiID = teach.UserID AND teach.CourseID = Courses.CourseID
+AND Classrooms.ClassroomID = areDoneIn.ClassroomID
+AND areDoneIn.ClassroomID = Spaces.SpaceID;
+
 /*2. Create and manage degrees and courses. This part should at least provide the
 following functionalities:*/
 delimiter //
-CREATE PROCEDURE createDegree (IN degreeid INT, IN userid INT)
+CREATE PROCEDURE createDegree (IN degreeid INT, IN userid INT, IN name VARCHAR(45))
 BEGIN
-	INSERT INTO Degrees (DegreeID, UserID) VALUES (degreeid, userid)
-	ON DUPLICATE KEY UPDATE DegreeID = degreeid, UserID = userid;
+	INSERT INTO Degrees (DegreeID, UserID, Name) VALUES (degreeid, userid, name)
+	ON DUPLICATE KEY UPDATE DegreeID = degreeid, UserID = userid, Name = name;
 END //
 
 delimiter //
@@ -157,8 +172,66 @@ END //
 
 /*(a) Classrooms (regular rooms, seminar rooms, computer labs, etc.) and a way
 to reserve/assign them.*/
+delimiter //
+CREATE PROCEDURE createSpace (IN spaceid INT, IN capacity INT, IN location VARCHAR(20), IN systemid INT)
+BEGIN
+	INSERT INTO Spaces (SpaceID, Capacity, Location, SystemID) VALUES (spaceid, capacity, location, systemid)
+	ON DUPLICATE KEY UPDATE SpaceID = spaceid, Capacity = capacity, Location = location, SystemID = systemid;
+END //
+
+delimiter //
+CREATE PROCEDURE createClassroom (IN classroomid INT, IN spaceid INT, IN kind VARCHAR(20))
+BEGIN
+	INSERT INTO Classrooms (ClassroomID, SpaceID, Kind) VALUES (classroomid, spaceid, kind)
+	ON DUPLICATE KEY UPDATE ClassroomID = classroomid, SpaceID = spaceid, Kind = kind;
+END //
+
+delimiter //
+CREATE PROCEDURE assignCourseToClassroom (IN courseid INT, IN classroomid INT, IN starttime DATE, IN endtime DATE)
+BEGIN
+	INSERT INTO areDoneIN (CourseID, ClassroomID, StartTime, EndTime) VALUES (courseid, classroomid, starttime, endtime)
+	ON DUPLICATE KEY UPDATE CourseID = courseid, ClassroomID = classroomid, StartTime = starttime, EndTime = endtime;
+END //
 
 /*(b) Offices and other spaces.*/
+delimiter //
+CREATE PROCEDURE createOffice (IN officeid INT, IN spaceid INT)
+BEGIN
+	INSERT INTO Offices (OfficeID, SpaceID) VALUES (officeid, spaceid)
+	ON DUPLICATE KEY UPDATE OfficeID = officeid, SpaceID = spaceid;
+END //
+
+delimiter //
+CREATE PROCEDURE assignOfficeToPdi (IN pdiid INT, IN officeid INT)
+BEGIN
+	UPDATE PDIs SET OfficeID = officeid WHERE PDIs.pdiID = pdiid;
+END //
+
+delimiter //
+CREATE PROCEDURE assignOfficeToDepartment (IN departmentid INT, IN officeid INT)
+BEGIN
+	UPDATE Departments SET OfficeID = officeid WHERE Departments.DepartmentID = departmentid;
+END //
+
+
+delimiter //
+CREATE PROCEDURE createLibraryWorkingArea (IN libid INT, IN spaceid INT)
+BEGIN
+	INSERT INTO LibraryWorkingAreas (LibraryWorkingAreaID, SpaceID) VALUES (libid, spaceid)
+	ON DUPLICATE KEY UPDATE LibraryWorkingAreaID = libid, SpaceID = spaceid;
+END //
+
+delimiter //
+CREATE PROCEDURE bookLibraryWorkingArea (IN userid INT, IN bookingid INT, IN startdate DATE, IN enddate DATE, IN libid INT)
+BEGIN
+	IF libid IN (SELECT LibraryWorkingAreas.LibraryWorkingAreaID FROM LibraryWorkingAreas) THEN
+		INSERT INTO BookingHours (BookingId, UserID, StartingDate, EndingDate) VALUES (bookingid, userid, startdate, enddate)
+		ON DUPLICATE KEY UPDATE BookingId = bookingid, UserID = userid, StartingDate = startdate, EndingDate = enddate;
+
+		INSERT INTO have (BookingId, LibraryWorkingAreaID) VALUES (bookingid, libid)
+		ON DUPLICATE KEY UPDATE BookingId = bookingid, LibraryWorkingAreaID = libid;
+	END IF;
+END //
 
 /*(c) Material loan: books, computers, films, etc..*/
 
