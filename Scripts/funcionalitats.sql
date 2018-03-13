@@ -125,9 +125,13 @@ administrate the permissions different users have on those documents (who
 can upload/read what, deadlines, etc.).*/
 
 delimiter //
-CREATE FUNCTION checkUserUploadPermission (userid, 'read')
-RETURN BOOLEAN
+CREATE PROCEDURE uploadMaterial (IN userid INT, IN materialid INT, IN courseid INT, IN name VARCHAR(45), IN format VARCHAR(45), IN size INT)
 BEGIN
+	IF userid IN (SELECT PDIs.pdiID FROM PDIs WHERE PDIs.pdiID = userid AND PDIs.LvlOfAccess = 'Upload') THEN
+		INSERT INTO CourseMaterials (CourseMaterialID, CourseID, Name, Format, Size) VALUES (materialid, courseid, name, format, size)
+		ON DUPLICATE KEY UPDATE CourseMaterialID = materialid, CourseID = courseid, Name = name, Format = format, Size = size;
+	END IF;
+END //
 
 /*(c) Assign grades to students (within a course).*/
 delimiter //
