@@ -107,10 +107,10 @@ INSERT INTO Publications (PublicationID, Title, ProjectId) VALUES
 (808, 'WhyComputerGraphicsMakeMarcStupid', 505),
 (809, 'WhyComputerGraphicsMakeMarcStupidToo', 506);
 
-INSERT INTO Departments (DepartmentID, Name, BudgetID, SpaceID) VALUES
+INSERT INTO Departments (DepartmentID, Name, BudgetID, OfficeID) VALUES
 (303, 'Graphics', 001, 55001);
 
-INSERT INTO PDIs (pdiID, EmployeeID, DepartmentID, SpaceID, BudgetID, MemberOfGovTeam, LvlOfAccess, Permanent) VALUES
+INSERT INTO PDIs (pdiID, EmployeeID, DepartmentID, OfficeID, BudgetID, MemberOfGovTeam, LvlOfAccess, Permanent) VALUES
 (114125, 114125, 303, 55001, 001, 1, 'Upload', 1),
 (114126, 114126, 303, 55002, 001, 0, 'Upload', 1),
 (114127, 114127, 303, 55003, 001, 0, 'Upload', 1);

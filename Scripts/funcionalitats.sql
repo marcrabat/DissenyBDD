@@ -8,7 +8,7 @@ BEGIN
 END //
 
 delimiter //
-CREATE PROCEDURE createStudent(IN studentid INT, IN userid INT, IN lvlofaccess INT)
+CREATE PROCEDURE createStudent(IN studentid INT, IN userid INT, IN lvlofaccess VARCHAR(20))
 BEGIN
 	INSERT INTO Students (StudentID, UserID, LvlOfAccess) VALUES (studentid, userid, lvlofaccess)
 	ON DUPLICATE KEY UPDATE StudentID = studentid, UserID = userid, LvlOfAccess = lvlofaccess;
@@ -22,10 +22,10 @@ BEGIN
 END //
 
 delimiter //
-CREATE PROCEDURE createTeacher(IN pdiid INT, IN emplyoeeid INT, IN departmentid INT, IN spaceid INT, IN budgetid INT, IN govteam BOOLEAN, IN lvlofacces INT, IN permanent BOOLEAN)
+CREATE PROCEDURE createTeacher(IN pdiid INT, IN employeeid INT, IN departmentid INT, IN officeid INT, IN budgetid INT, IN govteam BOOLEAN, IN lvlofacces VARCHAR(20), IN permanent BOOLEAN)
 BEGIN
-	INSERT INTO PDIs (pdiID, EmployeeID, DepartmentID, SpaceID, BudgetID, MemberOfGovTeam, LvlOfAccess, Permanent) VALUES (pdiid, employeeid, departmentid, spaceid, budgetid, govteam, lvlofaccess, permanent)
-	ON DUPLICATE KEY UPDATE pdiID = pdiid, EmployeeID = employeeid, DepartmentID = departmentid, SpaceID = spaceid, BudgetID = budgetid, MemberOfGovTeam = govteam, LvlOfAccess = lvlofaccess, Permanent = permanent;
+	INSERT INTO PDIs (pdiID, EmployeeID, DepartmentID, OfficeID, BudgetID, MemberOfGovTeam, LvlOfAccess, Permanent) VALUES (pdiid, employeeid, departmentid, officeid, budgetid, govteam, lvlofaccess, permanent)
+	ON DUPLICATE KEY UPDATE pdiID = pdiid, EmployeeID = employeeid, DepartmentID = departmentid, OfficeID = officeid, BudgetID = budgetid, MemberOfGovTeam = govteam, LvlOfAccess = lvlofaccess, Permanent = permanent;
 END //
 
 delimiter //
