@@ -64,15 +64,15 @@ INSERT INTO PASs (pasID, EmployeeID, SystemID) VALUES
 (114128, 114128, 999),
 (114129, 114129, 999);
 
-INSERT INTO Students (StudentID, UserID, LvlOfAccess) VALUES
-(114130, 114130, 'Read'),
-(114131, 114131, 'Read'),
-(114132, 114132, 'Read'),
-(114133, 114133, 'Read'),
-(114134, 114134, 'Read'),
-(114135, 114135, 'Read'),
-(114136, 114136, 'Read'),
-(114137, 114137, 'Read');
+INSERT INTO Students (StudentID, UserID, LvlOfAccess, TFGMark) VALUES
+(114130, 114130, 'Read', 5),
+(114131, 114131, 'Read', 5),
+(114132, 114132, 'Read', 5),
+(114133, 114133, 'Read', 5),
+(114134, 114134, 'Read', 5),
+(114135, 114135, 'Read', 5),
+(114136, 114136, 'Read', 5),
+(114137, 114137, 'Read', 5);
 
 INSERT INTO BookingHours (BookingId, UserID, StartingDate, EndingDate) VALUES
 (777, 114130, '2018-03-12', '2018-03-13');
@@ -115,10 +115,10 @@ INSERT INTO PDIs (pdiID, EmployeeID, DepartmentID, OfficeID, BudgetID, MemberOfG
 (114126, 114126, 303, 55002, 001, 0, 'Upload', 1),
 (114127, 114127, 303, 55003, 001, 0, 'Upload', 1);
 
-INSERT INTO TFGs (TFGID, TFGName, Mark, DegreeId, SupervisorId) VALUES
-(101, 'MarcTreballa', 0, 222, 114125),
-(102, 'MarcAhpavila', 0, 223, 114125),
-(103, 'MarcFesFeina', 0, 223, 114125);
+INSERT INTO TFGs (TFGID, TFGName, DegreeId, SupervisorId) VALUES
+(101, 'MarcTreballa', 222, 114125),
+(102, 'MarcAhpavila', 223, 114125),
+(103, 'MarcFesFeina', 223, 114125);
 
 INSERT INTO UniversityMaterials (UniversityMaterialID, Name, Availability, StartingDate, EndingDate, SystemID) VALUES
 (909, 'Computer', 0, '2018-03-11', '2018-03-12', 999);

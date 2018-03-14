@@ -298,8 +298,12 @@ END; //
 delimiter //
 CREATE TRIGGER checkTwoCoursesSameTimeForPdi BEFORE INSERT ON teach FOR EACH ROW
 BEGIN
-	
-	DECLARE timeNewCourse
+	DECLARE classTime DATETIME;
+
+	IF EXISTS (SELECT areDoneIn.StartTime FROM areDoneIn JOIN teach WHERE areDoneIn.CourseID = teach.CourseID AND teach.UserID = new.UserID) THEN
+		signal sqlstate '45000' set message_text = 'El PDI no pot tenir més de una classe a la mateixa hora';
+	END IF;
+END; //
 
 delimiter //
 CREATE TRIGGER bookNoLongerFourHours BEFORE INSERT ON BookingHours FOR EACH ROW
@@ -312,4 +316,29 @@ BEGIN
 	END IF;
 END; //
 
+DROP PROCEDURE IF EXISTS checkIfStudentPassDegree;
 delimiter //
+CREATE PROCEDURE checkIfStudentPassDegree(IN userid INT)
+BEGIN
+	IF EXISTS (SELECT doing.Mark FROM Courses JOIN Degrees JOIN contain JOIN enrolledTo JOIN doing WHERE contain.DegreeID = Degrees.DegreeID AND enrolledTo.UserID = userid AND enrolledTo.DegreeID = Degrees.DegreeID AND doing.UserID = userid AND doing.CourseID = Courses.CourseID AND doing.Mark < 5) THEN
+		signal sqlstate '01000' set message_text = 'Aquest estudiant no ha aprovat la carrera encara';
+	ELSEIF EXISTS (SELECT Students.TFGMark FROM Students WHERE Students.TFGMark < 5 AND Students.UserID = userid) THEN
+		signal sqlstate '01000' set message_text = 'Aquest estudiant no ha aprovat la carrera encara';
+	ELSE
+		signal sqlstate '01000' set message_text = 'Aquest estudiant ha aprovat la carrera';
+	END IF;
+END; //
+
+delimiter //
+CREATE PROCEDURE accessDepartmentBudget (in pdiid INT)
+BEGIN
+	DECLARE isMemGovTeam BOOLEAN;
+
+	SET isMemGovTeam = (SELECT PDIs.MemberOfGovTeam FROM PDIs WHERE PDIs.pdiID = pdiid);
+
+	IF isMemGovTeam THEN
+		SELECT Budgets.AmountMoney FROM Budgets WHERE Budgets.BudgetID = (SELECT Departments.BudgetID FROM Departments WHERE Departments.DepartmentID = (SELECT PDIs.DepartmentID FROM PDIs WHERE PDIs.pdiID = pdiid);
+	ELSE
+		signal sqlstate '45000' set message_text = 'El PDI assenyalat no té accés al pressupost del seu departament';
+	END IF;
+END; //
