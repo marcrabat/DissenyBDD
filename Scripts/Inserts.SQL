@@ -1,6 +1,3 @@
-/*
-The creation of different users (e.g.: students, teachers, other employees, etc.):
-*/
 INSERT INTO Budgets (BudgetID, AmountMoney) VALUES
 (001, 200.00),
 (002, 300.00),
@@ -121,7 +118,7 @@ INSERT INTO TFGs (TFGID, TFGName, DegreeId, SupervisorId) VALUES
 (103, 'MarcFesFeina', 223, 114125);
 
 INSERT INTO UniversityMaterials (UniversityMaterialID, Name, Availability, StartingDate, EndingDate, SystemID) VALUES
-(909, 'Computer', 0, '2018-03-11', '2018-03-12', 999);
+(909, 'Computer', 0, '2018-03-11 8:00:00.00', '2018-03-11 10:00:00.00', 999);
 
 INSERT INTO contain (DegreeId, CourseID) VALUES
 (222, 404),
@@ -159,9 +156,9 @@ INSERT INTO areAssociated (GrantId, ProjectId) VALUES
 (707, 505);
 
 INSERT INTO areDoneIn (CourseId, ClassroomID, StartTime, EndTime) VALUES
-(404, 52001, '2018-03-11', '2018-03-12'),
-(405, 54002, '2018-03-12', '2018-03-13'),
-(406, 52001, '2018-03-13', '2018-03-14');
+(404, 52001, '2018-03-11 8:00:00.00', '2018-03-12 10:00:00.00'),
+(405, 54002, '2018-03-11 10:00:00.00', '2018-03-12 12:00:00.00'),
+(406, 52001, '2018-03-11 12:00:00.00', '2018-03-12 14:00:00.00');
 
 INSERT INTO take (UserID, UniversityMaterialID, OrderToTake) VALUES
 (114130, 909, 1);
